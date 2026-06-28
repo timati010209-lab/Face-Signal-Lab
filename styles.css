@@ -1,0 +1,353 @@
+:root {
+  color-scheme: dark;
+  --bg: #080a0d;
+  --panel: #11161b;
+  --panel-strong: #151c23;
+  --line: #29333d;
+  --text: #eef3f7;
+  --muted: #8d9aa8;
+  --green: #49f2a7;
+  --red: #ff4268;
+  --yellow: #ffd85a;
+  --cyan: #47c7ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(145deg, rgba(71, 199, 255, 0.1), transparent 34%),
+    radial-gradient(circle at 82% 22%, rgba(73, 242, 167, 0.08), transparent 28%),
+    var(--bg);
+  color: var(--text);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  overflow: hidden;
+}
+
+button {
+  font: inherit;
+}
+
+select {
+  font: inherit;
+}
+
+.face-app {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 10px;
+  padding: 10px;
+}
+
+.camera-panel,
+.metrics-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(17, 22, 27, 0.9);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+}
+
+.camera-panel {
+  display: grid;
+  grid-template-rows: 40px minmax(0, 1fr);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--line);
+  background: #0d1116;
+  color: var(--muted);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.window-dots {
+  display: flex;
+  gap: 7px;
+}
+
+.window-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #5a6470;
+}
+
+.window-dots span:nth-child(1) {
+  background: #ff5f56;
+}
+
+.window-dots span:nth-child(2) {
+  background: #ffbd2e;
+}
+
+.window-dots span:nth-child(3) {
+  background: #27c93f;
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #596372;
+}
+
+.status-dot.is-live {
+  background: var(--green);
+  box-shadow: 0 0 16px rgba(73, 242, 167, 0.72);
+}
+
+.fps {
+  white-space: nowrap;
+}
+
+.stage {
+  position: relative;
+  min-height: 0;
+  background: #030406;
+  overflow: hidden;
+}
+
+#cameraFeed,
+#overlayCanvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#cameraFeed {
+  object-fit: cover;
+  opacity: 0.82;
+}
+
+#cameraFeed.is-mirrored {
+  transform: scaleX(-1);
+}
+
+#overlayCanvas {
+  pointer-events: none;
+}
+
+.scanline {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px);
+  background-size: 100% 4px;
+  opacity: 0.18;
+}
+
+.live-badge {
+  position: absolute;
+  left: 18px;
+  top: 16px;
+  padding: 5px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.44);
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  color: white;
+}
+
+.metrics-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.panel-title {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--line);
+  background: #111820;
+  font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  color: #dce5ee;
+}
+
+.panel-title.secondary {
+  border-top: 1px solid var(--line);
+}
+
+.metric {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-height: 58px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(41, 51, 61, 0.72);
+}
+
+.metric span {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.metric strong {
+  min-width: 0;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 112px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(41, 51, 61, 0.72);
+}
+
+.form-row label {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.form-row select {
+  min-width: 0;
+  height: 36px;
+  border: 1px solid #35414d;
+  border-radius: 6px;
+  background: #171f27;
+  color: var(--text);
+  padding: 0 10px;
+}
+
+.profile-card {
+  margin: 14px 14px 0;
+  padding: 12px;
+  border: 1px solid rgba(73, 242, 167, 0.28);
+  border-radius: 8px;
+  background: rgba(73, 242, 167, 0.07);
+  color: #dfffee;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 14px;
+}
+
+.button {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #35414d;
+  border-radius: 6px;
+  background: #171f27;
+  color: #dce7f1;
+  cursor: pointer;
+}
+
+.button svg {
+  width: 18px;
+  height: 18px;
+}
+
+.button.primary,
+.button.is-active {
+  border-color: rgba(73, 242, 167, 0.64);
+  color: var(--green);
+}
+
+.note {
+  margin-top: auto;
+  padding: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+@media (max-width: 860px) {
+  body {
+    overflow: auto;
+  }
+
+  .face-app {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(420px, 62vh) auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .face-app {
+    padding: 6px;
+    gap: 6px;
+  }
+
+  .camera-panel,
+  .metrics-panel {
+    border-radius: 6px;
+  }
+
+  .actions {
+    grid-template-columns: 1fr;
+  }
+}
+
+body.obs-mode {
+  overflow: hidden;
+  background: #030406;
+}
+
+body.obs-mode .face-app {
+  min-height: 100vh;
+  display: block;
+  padding: 0;
+}
+
+body.obs-mode .camera-panel {
+  width: 100vw;
+  height: 100vh;
+  display: block;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+body.obs-mode .topbar,
+body.obs-mode .metrics-panel,
+body.obs-mode .live-badge {
+  display: none;
+}
+
+body.obs-mode .stage {
+  width: 100vw;
+  height: 100vh;
+}

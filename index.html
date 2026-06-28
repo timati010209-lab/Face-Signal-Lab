@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Face Signal Lab</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="face-app">
+      <section class="camera-panel" aria-label="Face camera">
+        <header class="topbar">
+          <div class="window-dots" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="status">
+            <span class="status-dot" id="statusDot"></span>
+            <span id="statusText">camera idle</span>
+          </div>
+          <div class="fps" id="fpsText">fps --</div>
+        </header>
+
+        <div class="stage" id="stage">
+          <video id="cameraFeed" playsinline muted></video>
+          <canvas id="overlayCanvas"></canvas>
+          <div class="scanline" aria-hidden="true"></div>
+          <div class="live-badge">FACE / SIGNAL LAB</div>
+        </div>
+      </section>
+
+      <aside class="metrics-panel" aria-label="Face metrics">
+        <div class="panel-title">Live Signals</div>
+
+        <div class="metric">
+          <span>Face</span>
+          <strong id="faceStatus">not detected</strong>
+        </div>
+        <div class="metric">
+          <span>Position</span>
+          <strong id="poseStatus">--</strong>
+        </div>
+        <div class="metric">
+          <span>Tilt</span>
+          <strong id="tiltStatus">--</strong>
+        </div>
+        <div class="metric">
+          <span>Lighting</span>
+          <strong id="lightStatus">--</strong>
+        </div>
+        <div class="metric">
+          <span>Expression cue</span>
+          <strong id="expressionStatus">--</strong>
+        </div>
+
+        <div class="panel-title secondary">Self-Reported Profile</div>
+
+        <div class="form-row">
+          <label for="ageInput">Age range</label>
+          <select id="ageInput">
+            <option value="">Not set</option>
+            <option>Under 18</option>
+            <option>18-24</option>
+            <option>25-34</option>
+            <option>35-44</option>
+            <option>45-54</option>
+            <option>55+</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="genderInput">Gender</label>
+          <select id="genderInput">
+            <option value="">Not set</option>
+            <option>Man</option>
+            <option>Woman</option>
+            <option>Non-binary</option>
+            <option>Prefer not to say</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="moodInput">Mood</label>
+          <select id="moodInput">
+            <option value="">Not set</option>
+            <option>Calm</option>
+            <option>Focused</option>
+            <option>Happy</option>
+            <option>Tired</option>
+            <option>Stressed</option>
+          </select>
+        </div>
+
+        <div class="profile-card" id="profileSummary">
+          Profile: not set
+        </div>
+
+        <div class="actions">
+          <button class="button primary" id="cameraButton">
+            <i data-lucide="video"></i>
+            <span>Start camera</span>
+          </button>
+          <button class="button" id="mirrorButton">
+            <i data-lucide="flip-horizontal-2"></i>
+            <span>Mirror</span>
+          </button>
+        </div>
+
+        <div class="note">
+          The profile fields are entered by the person on camera. The camera only
+          detects visible facial geometry and does not infer identity, gender, age,
+          or inner emotional state.
+        </div>
+      </aside>
+    </main>
+
+    <script src="./assets/libs/mediapipe/face_mesh/face_mesh.js"></script>
+    <script src="./assets/libs/lucide/lucide.min.js"></script>
+    <script src="./face.js"></script>
+  </body>
+</html>
