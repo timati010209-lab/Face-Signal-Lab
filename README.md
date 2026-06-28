@@ -1,0 +1,2 @@
+# Face-Signal-Lab
+Browser-only face signal visualization demo: camera-based Face Mesh landmarks, head tilt, pose, lighting status and Canvas overlay. Built with JavaScript, WebRTC and local MediaPipe Face Mesh; no backend or external API.
